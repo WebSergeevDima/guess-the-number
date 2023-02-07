@@ -2,30 +2,43 @@
 
 function startGame() {
 
-    const userNumber = prompt('Угадай число от 1 до 100');
+    const botNumber = randomNumber();
 
-    if (userNumber != null) {
+    return function initGane() {
 
-        if (!isNumber(userNumber)) {
-            alert('Введи число!');
-            startGame();
+        const userNumber = prompt('Угадай число от 1 до 100');
+
+        if (userNumber != null) {
+
+            if (!isNumber(userNumber)) {
+
+                alert('Введи число!');
+                initGane();
+
+            } else {
+
+                if (userNumber > botNumber) {
+
+                    alert('Загаданное число меньше');
+                    initGane();
+
+                } else if (userNumber < botNumber) {
+
+                    alert('Загаданное число больше');
+                    initGane();
+
+                } else {
+
+                    alert('Поздравляю, Вы угадали!!!');
+
+                }
+            }
+
         } else {
-            initBot();
+
+            alert('Игра окончена');
+
         }
-
-    } else {
-        alert('Игра окончена');
-    }
-
-    function initBot() {
-
-        if (userNumber > botNumber || userNumber < botNumber) {
-            alert('Не угадали. Загадайте число ещё раз!');
-            startGame();
-        } else {
-            alert('Поздравляю, Вы угадали!!!');
-        }
-
     }
 
 }
@@ -38,6 +51,6 @@ const isNumber = function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num) && (String(num) === String(num).trim());
 }
 
-const botNumber = randomNumber();
+const start = startGame();
 
-startGame();
+start();
